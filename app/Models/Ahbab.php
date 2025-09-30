@@ -52,7 +52,18 @@ class Ahbab extends Model
     {
         return $this->belongsTo(Markaz::class);
     }
+
+    public function tafakuts(): HasMany
+    {
+        return $this->haMany(Tafakut::class);
+    }    
    
+    public function azams(): HasMany
+    {
+        return $this->haMany(Azam::class);
+    }    
+
+
     public function amalans(): HasMany
     {
         return $this->hasMany(Amalan::class);

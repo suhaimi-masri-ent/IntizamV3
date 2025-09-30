@@ -48,10 +48,10 @@ class State extends Model
         return $this->hasMany(Markaz::class);
     }
 
-    public function zones(): HasMany
-    {
-        return $this->hasMany(Zone::class);
-    }
+    // public function zones(): HasMany
+    // {
+    //     return $this->hasMany(Zone::class);
+    // }
 
 
 

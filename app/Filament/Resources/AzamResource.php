@@ -13,6 +13,7 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Icon;
+use Filament\Forms\Components\Fieldset;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -42,30 +43,34 @@ class AzamResource extends Resource
                     ->preload()->searchable(),                
                 // Select::make('amal_id')->required()->label('Pengalaman')
                 //     ->relationship(name: 'amalan.amal', titleAttribute: 'name')
-                //     ->preload()->searchable(),             
-                DatePicker::make('checkin')->required()->label('Tarikh Keluar')
-                    ->belowContent([
-                        '±7 hari pembentukan jemaah',
-                    ])
-                    ->native(false)
-                    ->displayFormat('d/m/Y'),
-                Grid::make(2)
-                    ->schema([
-                        TextInput::make('duration')->label('Tempoh'),    
-                        TextInput::make('expense')->label('Belanja'),    
-                    ]),
-                TextInput::make('last1y')->label('1 Tahun lepas'),    
-                TextInput::make('last2y')->label('2 Tahun lepas'),    
-                Grid::make(2)
-                    ->schema([
-                        Toggle::make('cuti')->label('Cuti'),
-                        Toggle::make('permission')->label('Kebenaran'),
-                    ]),
+                //     ->preload()->searchable(),
                 Grid::make(3)
                     ->schema([
-                        Toggle::make('amer')->label('Amer'),
-                        Toggle::make('pengendali')->label('Pengendali'),
-                        Toggle::make('tertib')->label('Tertib'),
+                        DatePicker::make('checkin')->required()->label('Tarikh Keluar')
+                            ->helperText('±7 hari pembentukan jemaah')
+                            ->native(false)
+                            ->displayFormat('d/m/Y'),
+                        TextInput::make('duration')->label('Tempoh')->hint('(Bilangan hari)'),    
+                        TextInput::make('expense')->label('Belanja'),    
+                    ]),
+                Grid::make(2)
+                    ->schema([
+                    Fieldset::make('Pelepasan')
+                        ->schema([
+                            Toggle::make('cuti')->label('Cuti'),
+                            Toggle::make('permission')->label('Kebenaran'),
+                        ]),                    
+                    Fieldset::make('Pengalaman')
+                        ->schema([
+                            TextInput::make('last1y')->label('1 Tahun lepas'),    
+                            TextInput::make('last2y')->label('2 Tahun lepas'),
+                            Grid::make(3)
+                                ->schema([
+                                        Toggle::make('amer')->label('Amer'),
+                                        Toggle::make('pengendali')->label('Pengendali'),
+                                        Toggle::make('tertib')->label('Tertib'),
+                                ]),
+                        ]),                    
                     ]),
                 TextInput::make('description')->label('Nota')
                     ->columnSpanFull(),
