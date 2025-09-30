@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -39,6 +40,21 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+            ])
+            ->brandName('Intizam v5.3')
+            ->maxContentWidth('full')
+            ->topNavigation()
+            ->navigationGroups([
+                NavigationGroup::make('Status')
+                    ->collapsed(),
+                NavigationGroup::make('Personnel')
+                    ->collapsed(),
+                NavigationGroup::make('Geospatial')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label(fn (): string => __('navigation.settings    '))
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
             ])
             ->middleware([
                 EncryptCookies::class,

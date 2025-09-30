@@ -21,5 +21,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@class01wap.local',
             'password' => Hash::make('P@55w0rd'),
         ]);
+
+        $this->call(CountrySeeder::class);
+        $this->call(StateSeeder::class);
+        $this->call(CitySeeder::class);
+        $this->call(MarkazSeeder::class);
+        $this->call(HalqahSeeder::class);
+        $this->call(MohallahSeeder::class);
+        $this->call(OccupationSeeder::class);
+        $this->call(MarriageSeeder::class);
+        // $this->call(KhidmatSeeder::class);
+        // $this->call(AmalSeeder::class);
+
     }
 }
