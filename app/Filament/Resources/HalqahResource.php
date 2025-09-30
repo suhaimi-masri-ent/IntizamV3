@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HalqahResource\Pages;
 use App\Filament\Resources\HalqahResource\RelationManagers;
+use App\Filament\Resources\HalqahResource\RelationManagers\MohallahsRelationManager;
 use App\Models\Halqah;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -106,7 +107,7 @@ class HalqahResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MohallahsRelationManager::class,
         ];
     }
 
@@ -115,7 +116,7 @@ class HalqahResource extends Resource
         return [
             'index' => Pages\ListHalqahs::route('/'),
             // 'create' => Pages\CreateHalqah::route('/create'),
-            // 'edit' => Pages\EditHalqah::route('/{record}/edit'),
+            'edit' => Pages\EditHalqah::route('/{record}/edit'),
         ];
     }
 }

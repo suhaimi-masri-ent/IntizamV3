@@ -4,13 +4,17 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CountryResource\Pages;
 use App\Filament\Resources\CountryResource\RelationManagers;
+use App\Filament\Resources\CountryResource\RelationManagers\MarkazsRelationManager;
+use App\Filament\Resources\CountryResource\RelationManagers\StatesRelationManager;
 use App\Models\Country;
+use App\Models\State;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,8 +50,15 @@ class CountryResource extends Resource
                 TextColumn::make('region'),
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('Country Name')
+                   ->options(function () {
+                       return Country::query()
+                           ->distinct()
+                           ->pluck('name', 'name')
+                           ->toArray();
+                   })
+                   ->label('Nama Negeri'),
+                ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -61,7 +72,8 @@ class CountryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StatesRelationManager::class,
+            MarkazsRelationManager::class,
         ];
     }
 
@@ -70,7 +82,7 @@ class CountryResource extends Resource
         return [
             'index' => Pages\ListCountries::route('/'),
             // 'create' => Pages\CreateCountry::route('/create'),
-            // 'edit' => Pages\EditCountry::route('/{record}/edit'),
+            'edit' => Pages\EditCountry::route('/{record}/edit'),
         ];
     }
 }

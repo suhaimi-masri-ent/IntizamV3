@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MarkazResource\Pages;
 use App\Filament\Resources\MarkazResource\RelationManagers;
+use App\Filament\Resources\MarkazResource\RelationManagers\HalqahsRelationManager;
 use App\Models\Markaz;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -93,7 +94,7 @@ class MarkazResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            HalqahsRelationManager::class,
         ];
     }
 
@@ -102,7 +103,7 @@ class MarkazResource extends Resource
         return [
             'index' => Pages\ListMarkazs::route('/'),
             // 'create' => Pages\CreateMarkaz::route('/create'),
-            // 'edit' => Pages\EditMarkaz::route('/{record}/edit'),
+            'edit' => Pages\EditMarkaz::route('/{record}/edit'),
         ];
     }
 }

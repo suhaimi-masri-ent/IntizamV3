@@ -22,4 +22,9 @@ class Country extends Model
         return $this->hasMany(State::class);
     }
 
+    public function markazs(): HasMany
+    {
+        return $this->hasMany(Markaz::class);
+    }
+
 }

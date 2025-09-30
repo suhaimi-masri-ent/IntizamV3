@@ -70,8 +70,8 @@ class TafakutResource extends Resource
         return $table
             ->columns([
                 IconColumn::make('status')->label('Status')->boolean()->sortable(),
-                TextColumn::make('azam.ahbab.name')->label('Mujahid')->searchable()->sortable(),
-                TextColumn::make('azam.date')->label('Khuruj')->searchable()->sortable(),
+                TextColumn::make('azam.ahbab.fullname')->label('Mujahid')->searchable()->sortable(),
+                TextColumn::make('azam.checkin')->label('Khuruj')->searchable()->sortable(),
                 TextColumn::make('azam.duration')->label('Tasykil')->searchable()->sortable(),
                 TextColumn::make('azam.expense')->label('Belanja')->searchable()->sortable(),
                 TextColumn::make('azam.ahbab.halqah.name')->label('Halqah')->searchable()->sortable(),

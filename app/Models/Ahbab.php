@@ -55,12 +55,12 @@ class Ahbab extends Model
 
     public function tafakuts(): HasMany
     {
-        return $this->haMany(Tafakut::class);
+        return $this->hasMany(Tafakut::class);
     }    
    
     public function azams(): HasMany
     {
-        return $this->haMany(Azam::class);
+        return $this->hasMany(Azam::class);
     }    
 
 

@@ -4,6 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AhbabResource\Pages;
 use App\Filament\Resources\AhbabResource\RelationManagers;
+use App\Filament\Resources\AhbabResource\RelationManagers\AmalansRelationManager;
+use App\Filament\Resources\AhbabResource\RelationManagers\AzamsRelationManager;
+use App\Filament\Resources\AhbabResource\RelationManagers\TafakutsRelationManager;
 use App\Models\Ahbab;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -46,7 +49,7 @@ class AhbabResource extends Resource
                 TextInput::make('phone')->label('No. Tel.'),
                 TextInput::make('email')->label('Email'),
                 TextInput::make('language')->label('Bahasa'),
-                Select::make('marriage_id')->required()->label('Status')
+                Select::make('marriage_id')->required()->label('Status Perkahwinan')
                     ->relationship(name: 'marriage', titleAttribute: 'marriage_status')
                     ->preload()->searchable(),
                 Select::make('occupation_id')->required()->label('Pekerjaan')
@@ -156,7 +159,9 @@ class AhbabResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AmalansRelationManager::class,
+            AzamsRelationManager::class,
+            TafakutsRelationManager::class,
         ];
     }
 
@@ -165,7 +170,7 @@ class AhbabResource extends Resource
         return [
             'index' => Pages\ListAhbabs::route('/'),
             // 'create' => Pages\CreateAhbab::route('/create'),
-            // 'edit' => Pages\EditAhbab::route('/{record}/edit'),
+            'edit' => Pages\EditAhbab::route('/{record}/edit'),
         ];
     }
 }

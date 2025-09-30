@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('azam_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('amalan_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('amalan_id')->constrained()->cascadeOnDelete();
             $table->boolean('status')->default(false);
             $table->boolean('flag')->default(false);
             $table->string('syor1')->nullable();
