@@ -53,7 +53,7 @@ class TafakutResource extends Resource
                             Grid::make(3)
                                 ->schema([
                                     Select::make('pencadang2_id')->required()->label('Pencadang 2')
-                                        ->relationship(name: 'pencadang1', titleAttribute: 'fullname')
+                                        ->relationship(name: 'pencadang2', titleAttribute: 'fullname')
                                         ->preload()->searchable(), 
                                     TextInput::make('syor2')->label('Cadangan 2'),    
                                     DatePicker::make('tarikh_syor2')->required()->label('Tarikh Syor 2')

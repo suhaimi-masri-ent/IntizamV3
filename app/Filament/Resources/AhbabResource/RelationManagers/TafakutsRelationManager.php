@@ -19,13 +19,13 @@ class TafakutsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                // Forms\Components\Toggle::make('status'),
-                // Forms\Components\TextInput::make('syor1')->label('Cadangan 1')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('syor2')->label('Cadangan 2')
-                //     ->required()
-                //     ->maxLength(255),
+                Forms\Components\Toggle::make('status'),
+                Forms\Components\TextInput::make('syor1')->label('Cadangan 1')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('syor2')->label('Cadangan 2')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -34,7 +34,7 @@ class TafakutsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('status')
             ->columns([
-                Tables\Columns\IconColumn::make('status')->label('Status'),
+                Tables\Columns\IconColumn::make('status')->label('Status')->boolean(),
                 Tables\Columns\TextColumn::make('syor1')->label('Cadangan 1'),
                 Tables\Columns\TextColumn::make('syor2')->label('Cadangan 2'),
             ])

@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('tafakuts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('azam_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('azam.ahbab_id')->constrained()->cascadeOnDelete();
             // $table->foreignId('amalan_id')->constrained()->cascadeOnDelete();
             $table->boolean('status')->default(false);
             $table->boolean('flag')->default(false);
             $table->string('syor1')->nullable();
-            $table->foreignId('pencadang1_id')->constrained('ahbabs')->cascadeOnDelete();
+            $table->foreignId('pencadang1_id')->nullable()->constrained('ahbabs')->cascadeOnDelete();
             $table->date('tarikh_syor1')->nullable();
             $table->string('syor2')->nullable(); 
-            $table->foreignId('pencadang2_id')->constrained('ahbabs')->cascadeOnDelete();
+            $table->foreignId('pencadang2_id')->nullable()->constrained('ahbabs')->cascadeOnDelete();
             $table->date('tarikh_syor2')->nullable();
             $table->string('comment')->nullable(); 
         });
