@@ -14,6 +14,11 @@ class AmalansRelationManager extends RelationManager
 {
     protected static string $relationship = 'amalans';
 
+    public function getTableHeading(): string
+    {
+        return 'Pengalaman'; 
+    }
+
     public function form(Form $form): Form
     {
         return $form

@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TafakutResource\Pages;
 use App\Filament\Resources\TafakutResource\RelationManagers;
+use App\Filament\Resources\AzamResource;
+use App\Models\Azam;
 use App\Models\Tafakut;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +15,9 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Fieldset;
+// use Filament\Forms\Components\Hidden;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -35,8 +40,14 @@ class TafakutResource extends Resource
         return $form
             ->schema([
                 Select::make('azam_id')->required()->label('Azam ID')
-                    ->relationship(name: 'azam', titleAttribute: 'id')
+                    ->relationship(name: 'azam', titleAttribute: 'id')->inlineLabel()
+                    ->getSearchResultsUsing(fn (string $query) => Azam::where('azam_id', '=', "%{$query}%")
+                    ->pluck('azam_id', 'ahbab_id'))
+                  
+                    ->getOptionLabelFromRecordUsing(fn (Azam $record) => "{$record->azam_id} {$record->ahbab->fullname}  ({$record->duration} H)")
+                    ->optionsLimit(20)
                     ->preload()->searchable(),  
+
                 Toggle::make('status')->label('Status')->default(false), // Lulus atau Gagal
                 Fieldset::make('Cadangan')
                         ->schema([
@@ -63,6 +74,24 @@ class TafakutResource extends Resource
                         ]),
                 TextInput::make('comment')->label('Nota')->columnSpanFull(),                                          
             ]);
+    }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $azam_id = $data['azam_id'];
+        $data['azam_id'] = $azam_id;
+        $data['ahbab_id'] = Azam::find($azam_id)->ahbab_id;
+        unset($data['azam_id']);
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $azam_id = $data['azam_id'];
+        $data['azam_id'] = $azam_id;
+        $data['ahbab_id'] = Azam::find($azam_id)->ahbab_id;
+        unset($data['azam_id']);
+        return $data;
     }
 
     public static function table(Table $table): Table

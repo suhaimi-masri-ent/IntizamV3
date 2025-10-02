@@ -9,4 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAhbab extends CreateRecord
 {
     protected static string $resource = AhbabResource::class;
+
+
+
 }

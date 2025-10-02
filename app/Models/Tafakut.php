@@ -28,10 +28,15 @@ class Tafakut extends Model
         return $this->belongsTo(Azam::class);
     }    
 
-    public function azams(): HasMany
+    public function ahbab(): BelongsTo
     {
-        return $this->hasMany(Azam::class);
-    }
+        return $this->belongsTo(Ahbab::class);
+    } 
+
+    // public function azams(): HasMany
+    // {
+    //     return $this->hasMany(Azam::class);
+    // }
 
     public function amalans(): HasMany
     {

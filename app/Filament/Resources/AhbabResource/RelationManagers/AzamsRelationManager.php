@@ -34,7 +34,7 @@ class AzamsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('duration')
             ->columns([
-                Tables\Columns\TextColumn::make('duration')->label('Tempoh Keluar'),
+                Tables\Columns\TextColumn::make('duration')->label('Tempoh Keluar (H)'),
                 Tables\Columns\TextColumn::make('expense')->label('Belanja'),
                 Tables\Columns\TextColumn::make('checkin')->label('Tarikh Keluar'),
 
