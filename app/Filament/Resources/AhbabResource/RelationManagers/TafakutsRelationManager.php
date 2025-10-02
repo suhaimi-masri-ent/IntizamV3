@@ -19,7 +19,7 @@ class TafakutsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Toggle::make('status'),
+                Forms\Components\Toggle::make('status')->boolean(),
                 Forms\Components\TextInput::make('syor1')->label('Cadangan 1')
                     ->required()
                     ->maxLength(255),
@@ -37,6 +37,7 @@ class TafakutsRelationManager extends RelationManager
                 Tables\Columns\IconColumn::make('status')->label('Status')->boolean(),
                 Tables\Columns\TextColumn::make('syor1')->label('Cadangan 1'),
                 Tables\Columns\TextColumn::make('syor2')->label('Cadangan 2'),
+                Tables\Columns\TextColumn::make('updated_at')->label('Updated')->dateTime('d M Y H:i')->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

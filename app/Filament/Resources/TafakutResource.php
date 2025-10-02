@@ -15,7 +15,7 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Fieldset;
-// use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
@@ -41,13 +41,30 @@ class TafakutResource extends Resource
             ->schema([
                 Select::make('azam_id')->required()->label('Azam ID')
                     ->relationship(name: 'azam', titleAttribute: 'id')->inlineLabel()
-                    ->getSearchResultsUsing(fn (string $query) => Azam::where('azam_id', '=', "%{$query}%")
-                    ->pluck('azam_id', 'ahbab_id'))
-                  
+                    ->live() // Essential to trigger afterStateUpdated on change
+                    ->afterStateUpdated(function (?string $state, Set $set, Get $get) {
+                        if ($state) {
+                            $azam = Azam::find($state); // Find the selected product
+                            if ($azam) {
+                                $set('azam_id', $azam->id); // Set the azam id field
+                                $set('ahbab_id', $azam->ahbab->ahbab_id); // Set the azam ahbab id field
+                            }
+                        } else {
+                            // Clear the fields if no product is selected
+                            $set('azam_id', null);
+                            $set('ahbab_id', null);
+                        }
+                    })
+                    ->required()
                     ->getOptionLabelFromRecordUsing(fn (Azam $record) => "{$record->azam_id} {$record->ahbab->fullname}  ({$record->duration} H)")
                     ->optionsLimit(20)
                     ->preload()->searchable(),  
-
+                TextInput::make('azam_id')
+                    ->hidden()
+                    ->dehydrated(false), // Prevent saving to the database directly if not needed
+                TextInput::make('ahbab_id')
+                    ->hidden()
+                    ->dehydrated(false), // Prevent saving to the database directly if not needed
                 Toggle::make('status')->label('Status')->default(false), // Lulus atau Gagal
                 Fieldset::make('Cadangan')
                         ->schema([
@@ -76,23 +93,7 @@ class TafakutResource extends Resource
             ]);
     }
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $azam_id = $data['azam_id'];
-        $data['azam_id'] = $azam_id;
-        $data['ahbab_id'] = Azam::find($azam_id)->ahbab_id;
-        unset($data['azam_id']);
-        return $data;
-    }
 
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        $azam_id = $data['azam_id'];
-        $data['azam_id'] = $azam_id;
-        $data['ahbab_id'] = Azam::find($azam_id)->ahbab_id;
-        unset($data['azam_id']);
-        return $data;
-    }
 
     public static function table(Table $table): Table
     {
