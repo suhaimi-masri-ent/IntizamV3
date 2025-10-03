@@ -106,6 +106,12 @@ class AzamResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Status Tafakut')
+                    ->icon('heroicon-m-identification')
+                    ->label('Tafakut')
+                    ->url(fn (Azam $record): string => TafakutResource::getUrl('index', ['record' => $record->id]), shouldOpenInNewTab: false)
+                    ->modalContent(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
