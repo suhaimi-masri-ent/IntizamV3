@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('mohallah_id')->constrained()->cascadeOnDelete();
             // $table->foreignId('amalan_id')->constrained()->cascadeOnDelete();
             $table->char('duration');
+            $table->boolean('flag')->default(false);
             $table->boolean('cuti')->default(false);
             $table->boolean('permission')->default(false);
             $table->decimal('expense');
