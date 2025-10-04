@@ -170,14 +170,15 @@ class TafakutResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('Latarbelakang Azam')
-                    ->icon('heroicon-m-identification')
-                    ->label('Azam')
-                    ->url(fn (Tafakut $record): string => AzamResource::getUrl('index', ['record' => $record->azam_id]), shouldOpenInNewTab: false)
-                    ->modalContent(),
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\ViewAction::make(),
+            Tables\Actions\Action::make('Latarbelakang Azam')
+                ->icon('heroicon-m-identification')
+                ->label('Azam')
+                ->url(fn (Tafakut $record): string => AzamResource::getUrl('index', ['record' => $record->azam_id]), shouldOpenInNewTab: false)
+                ->modalContent(),
 
-            ])
+        ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -197,6 +198,7 @@ class TafakutResource extends Resource
         return [
             'index' => Pages\ListTafakuts::route('/'),
             // 'create' => Pages\CreateTafakut::route('/create'),
+            // 'view' => Pages\ViewTafakut::route('/{record}/view'),
             // 'edit' => Pages\EditTafakut::route('/{record}/edit'),
         ];
     }
