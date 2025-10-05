@@ -113,7 +113,7 @@ class AzamResource extends Resource
                     ->modalContent(),
                 Tables\Actions\Action::make('Details')
                     ->icon('heroicon-m-identification')
-                    ->url(fn (Azam $record): string => static::getUrl('show', ['record' => $record->id]), shouldOpenInNewTab: false),                
+                    ->url(fn (Azam $record): string => static::getUrl('show', ['record' => $record->id]), shouldOpenInNewTab: true),                
 
             ])
             ->bulkActions([

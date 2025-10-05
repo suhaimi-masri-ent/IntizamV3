@@ -7,6 +7,7 @@ use App\Filament\Resources\TafakutResource\RelationManagers;
 use App\Filament\Resources\AzamResource;
 use App\Models\Azam;
 use App\Models\Tafakut;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Select;
@@ -25,6 +26,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class TafakutResource extends Resource
@@ -186,6 +188,40 @@ class TafakutResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                Tables\Actions\BulkAction::make('bentuk_jemaah')
+                    ->label('Bentuk Jemaah')
+                    ->requiresConfirmation() // Optional: add confirmation
+                    ->form([
+                        TextInput::make('no_jemaah')
+                            ->label('No. Jemaah')
+                            ->required(),
+                        Select::make('takaza')
+                            ->label('Takaza')
+                            ->options([
+                                'DN' => 'DN',
+                                'SS' => 'SS',
+                                'NJ' => 'NJ',
+                                'BBNJ' => 'BBNJ',
+                                'IPB' => 'IPB',
+                                'JK' => 'JK',
+                            ])
+                            ->required(),
+                    ])
+                    ->action(function (Collection $records, array $data) {
+                        $newValue = $data['no_jemaah'];
+                        // Assuming you want to update a field named 'my_field'
+                        foreach ($records as $record) {
+                            $record->my_field = $newValue;
+                            $record->save();
+                        }
+
+                        // Optional: Add a notification
+                        \Filament\Notifications\Notification::make()
+                            ->title('Records updated successfully')
+                            ->success()
+                            ->send();
+                    })
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 
