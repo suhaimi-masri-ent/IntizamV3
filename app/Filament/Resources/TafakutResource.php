@@ -177,6 +177,9 @@ class TafakutResource extends Resource
                 ->label('Azam')
                 ->url(fn (Tafakut $record): string => AzamResource::getUrl('index', ['record' => $record->azam_id]), shouldOpenInNewTab: false)
                 ->modalContent(),
+            Tables\Actions\Action::make('Details')
+                ->icon('heroicon-m-identification')
+                ->url(fn (Tafakut $record): string => static::getUrl('show', ['record' => $record->id])),                
 
         ])
             ->bulkActions([
@@ -198,6 +201,7 @@ class TafakutResource extends Resource
         return [
             'index' => Pages\ListTafakuts::route('/'),
             // 'create' => Pages\CreateTafakut::route('/create'),
+            'show' => Pages\ShowTafakut::route('/{record}/show'),
             // 'view' => Pages\ViewTafakut::route('/{record}/view'),
             // 'edit' => Pages\EditTafakut::route('/{record}/edit'),
         ];
