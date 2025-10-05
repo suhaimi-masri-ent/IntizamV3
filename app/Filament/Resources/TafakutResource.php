@@ -26,6 +26,7 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+
 class TafakutResource extends Resource
 {
     protected static ?string $model = Tafakut::class;
@@ -152,7 +153,6 @@ class TafakutResource extends Resource
     }
 
 
-
     public static function table(Table $table): Table
     {
         return $table
@@ -170,18 +170,18 @@ class TafakutResource extends Resource
                 //
             ])
             ->actions([
-            Tables\Actions\EditAction::make(),
-            Tables\Actions\ViewAction::make(),
-            Tables\Actions\Action::make('Latarbelakang Azam')
-                ->icon('heroicon-m-identification')
-                ->label('Azam')
-                ->url(fn (Tafakut $record): string => AzamResource::getUrl('index', ['record' => $record->azam_id]), shouldOpenInNewTab: false)
-                ->modalContent(),
-            Tables\Actions\Action::make('Details')
-                ->icon('heroicon-m-identification')
-                ->url(fn (Tafakut $record): string => static::getUrl('show', ['record' => $record->id])),                
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('Latarbelakang Azam')
+                    ->icon('heroicon-m-identification')
+                    ->label('Azam')
+                    ->url(fn (Tafakut $record): string => AzamResource::getUrl('index', ['record' => $record->azam_id]), shouldOpenInNewTab: false)
+                    ->modalContent(),
+                Tables\Actions\Action::make('Details')
+                    ->icon('heroicon-m-identification')
+                    ->url(fn (Tafakut $record): string => static::getUrl('show', ['record' => $record->id]), shouldOpenInNewTab: true),                
 
-        ])
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
