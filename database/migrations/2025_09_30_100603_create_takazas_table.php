@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreignId('mohallah_id')->constrained()->cascadeOnDelete(); //Route to Mohallah
             $table->foreignId('amal_id')->constrained()->cascadeOnDelete(); //Takaza
             $table->char('no_jemaah')->nullable();
+            $table->date('tarikh_hidayat')->nullable();
+            $table->date('tarikh_kharguzari')->nullable();
+            $table->date('tarikh_tangguh')->nullable();
             $table->string('comment')->nullable();
         });
     }
