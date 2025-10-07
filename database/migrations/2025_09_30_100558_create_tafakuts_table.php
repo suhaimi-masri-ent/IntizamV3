@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('ahbab_id')->constrained()->cascadeOnDelete();
             // $table->foreignId('amalan_id')->constrained()->cascadeOnDelete();
             $table->boolean('status')->default(false);
-            $table->boolean('flag')->default(false);
+            $table->boolean('flag_proses')->default(false);
             $table->string('syor1')->nullable();
             $table->foreignId('pencadang1_id')->nullable()->constrained('ahbabs')->cascadeOnDelete();
             $table->date('tarikh_syor1')->nullable();
@@ -26,6 +26,10 @@ return new class extends Migration
             $table->foreignId('pencadang2_id')->nullable()->constrained('ahbabs')->cascadeOnDelete();
             $table->date('tarikh_syor2')->nullable();
             $table->string('comment')->nullable(); 
+            $table->char('no_jemaah')->nullable(); 
+            $table->char('takaza')->nullable(); 
+            $table->string('route')->nullable(); 
+            $table->boolean('flag_bentuk')->default(false);
         });
     }
 

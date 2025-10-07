@@ -1,6 +1,6 @@
 <x-filament-panels::page>
-    <div class="space-y-6">
 
+    <div class="space-y-6">
         {{-- Display the Tafakut record details --}}
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

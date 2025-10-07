@@ -31,6 +31,8 @@ class AzamResource extends Resource
     protected static ?string $navigationGroup = 'Personnel';
     protected static ?int $navigationSort = 46; 
 
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -111,9 +113,12 @@ class AzamResource extends Resource
                     ->label('Tafakut')
                     ->url(fn (Azam $record): string => TafakutResource::getUrl('index', ['record' => $record->id]), shouldOpenInNewTab: false)
                     ->modalContent(),
-                Tables\Actions\Action::make('Details')
+                Tables\Actions\Action::make('Details')             
                     ->icon('heroicon-m-identification')
-                    ->url(fn (Azam $record): string => static::getUrl('show', ['record' => $record->id]), shouldOpenInNewTab: true),                
+                    ->url(fn (Azam $record): string => static::getUrl('show', ['record' => $record->id])),
+                    // ->modalContent(function (Azam $record): \Illuminate\Contracts\View\View {
+                    //     return view('filament.resources.azam-resource.pages.show-azam', ['record' => $record->id]);
+                    // }),
 
             ])
             ->bulkActions([

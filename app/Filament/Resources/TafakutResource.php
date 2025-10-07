@@ -65,15 +65,6 @@ class TafakutResource extends Resource
                             $set('azam_id', null);
                             $set('ahbab_id', null);
                         }
-                        // // Ensure the Azam flag is set to true when a Tafakut is created
-                        // $azam_flag = $record->flag ?? false;
-                        // if (!$azam_flag && $state) {
-                        //     $azam = Azam::find($state);
-                        //     if ($azam) {
-                        //         $azam->flag = true;
-                        //         $azam->save();
-                        //     }
-                        // }
                     })
                     ->required()
                     ->loadingMessage('Memuatkan Data Azam, mohon tunggu ...')
@@ -125,7 +116,7 @@ class TafakutResource extends Resource
                 TextInput::make('ahbab_id')
                     ->hidden()
                     ->dehydrated(false), // Prevent saving to the database directly if not needed
-                Toggle::make('flag')->hidden()->default(true), // No need to list again once it is set to true
+                Toggle::make('flag_proses')->hidden()->default(true), // No need to list again once it is set to true
                 Toggle::make('status')->label('Status')->default(false), // Lulus atau Gagal
                 Fieldset::make('Cadangan')
                         ->schema([
@@ -158,8 +149,13 @@ class TafakutResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            // ->query(Tafakut::query()) // Or your base model query
+            // ->modifyQueryUsing(function (Builder $query) {
+            //     $query->where('flag_bentuk', 0);
+            // })        
             ->columns([
                 IconColumn::make('status')->label('Status')->boolean()->sortable(),
+                TextColumn::make('no_jemaah')->label('No. Jemaah')->searchable()->sortable()->default('Pending'),
                 TextColumn::make('azam.ahbab.fullname')->label('Mujahid')->searchable()->sortable(),
                 TextColumn::make('azam.checkin')->label('Khuruj')->searchable()->sortable(),
                 TextColumn::make('azam.duration')->label('Tasykil')->searchable()->sortable(),
@@ -204,14 +200,24 @@ class TafakutResource extends Resource
                                 'BBNJ' => 'BBNJ',
                                 'IPB' => 'IPB',
                                 'JK' => 'JK',
+                                'JM' => 'JM',
                             ])
+                            ->required(),
+                        TextInput::make('route')
+                            ->label('Route')
                             ->required(),
                     ])
                     ->action(function (Collection $records, array $data) {
-                        $newValue = $data['no_jemaah'];
+                        $no_jemaah = $data['no_jemaah'];
+                        $takaza = $data['takaza'];
+                        $route = $data['route'];
+                        $flag_bentuk = 1;
                         // Assuming you want to update a field named 'my_field'
                         foreach ($records as $record) {
-                            $record->my_field = $newValue;
+                            $record->no_jemaah = $no_jemaah;
+                            $record->takaza = $takaza;
+                            $record->route = $route;
+                            $record->flag_bentuk = $flag_bentuk;
                             $record->save();
                         }
 
